@@ -50,6 +50,10 @@ const employeeSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please enter a password'],
     },
+    role: {
+        type: String,
+        default: 'employee'
+    }
 
 });
 

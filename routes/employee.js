@@ -2,7 +2,9 @@ const express = require('express');
 const { getEmployees, createEmployee } = require('../controller/employee');
 const router = express.Router();
 
-router.get("/", getEmployees)
+const checkLogin = require('../middleware/checkLogin');
+
+router.get("/", checkLogin, getEmployees)
 router.post("/", createEmployee)
 
 module.exports = router;

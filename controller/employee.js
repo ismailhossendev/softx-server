@@ -1,4 +1,5 @@
 const employeeModel = require('../models/employee');
+const bcrypt = require('bcrypt');
 
 const getEmployees = async (req, res) => {
     try {
@@ -9,13 +10,28 @@ const getEmployees = async (req, res) => {
     }
 }
 const createEmployee = async (req, res) => {
-    const employee = req.body;
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    const employee = {
+        name: req.body.name,
+        email: req.body.email,
+        phone: req.body.phone,
+        location: req.body.location,
+        position: req.body.position,
+        department: req.body.department,
+        status: req.body.status,
+        salary: req.body.salary,
+        image: req.body.image,
+        username: req.body.username,
+        password: hashedPassword,
+        role: req.body.role
+    }
+
     const newEmployee = new employeeModel(employee);
     try {
         await newEmployee.save();
         res.status(201).json(newEmployee);
     } catch (error) {
-        res.status(409).json({ message: error.message });
+        res.status(409).json({ message: error.message.slice(error.message.indexOf(': ') + 2) });
     }
 }
 

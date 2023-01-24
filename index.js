@@ -7,6 +7,7 @@ const app = express();
 
 // import routes
 const employeesRoutes = require('./routes/employee');
+const authRoute = require('./controller/auth')
 
 const port = process.env.PORT || 5000;
 
@@ -22,9 +23,12 @@ mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTop
 // routes middleware
 app.use('/api/employee', employeesRoutes);
 
+
+
 app.get('/', (req, res) => {
     res.send('We are on home');
 });
+app.get('/login', authRoute)
 
 
 
