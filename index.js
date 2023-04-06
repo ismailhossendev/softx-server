@@ -7,7 +7,7 @@ const app = express();
 
 // import routes
 const employeesRoutes = require('./routes/employee');
-const authRoute = require('./controller/auth')
+const authRoute = require('./controller/auth');
 
 const port = process.env.PORT || 5000;
 
